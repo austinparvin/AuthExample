@@ -9,6 +9,8 @@ export function Home() {
   const [loginEmail, setLoginEmail] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
 
+  const [token, setToken] = useState('')
+
   const sendNewUserToApi = async () => {
     // Add extra validation logic here
     const resp = await axios.post('/auth/signup', {
@@ -25,10 +27,24 @@ export function Home() {
       password: loginPassword,
     })
     console.log(resp.data)
+    setToken(resp.data.token)
+  }
+
+  const getSecretInformation = async () => {
+    const resp = await axios.get('api/secret', {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    })
+    console.log(resp.data)
   }
 
   return (
     <div>
+      <section>
+        <h2>Test Authentication</h2>
+        <button onClick={getSecretInformation}>Test</button>
+      </section>
       <section className="login">
         <section>
           <label htmlFor="">Email</label>
