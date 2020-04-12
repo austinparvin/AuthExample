@@ -1,9 +1,20 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 export function Home() {
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const sendNewUserToApi = async () => {
+    // Add extra validation logic here
+    const resp = await axios.post('/auth/signup', {
+      fullName: fullName,
+      email: email,
+      password: password,
+    })
+    console.log(resp.data)
+  }
 
   return (
     <div>
@@ -33,7 +44,7 @@ export function Home() {
             onChange={e => setPassword(e.target.value)}
           />
         </section>
-        <button>Sign Up</button>
+        <button onClick={sendNewUserToApi}>Sign Up</button>
       </section>
     </div>
   )
