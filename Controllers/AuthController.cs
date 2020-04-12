@@ -75,7 +75,8 @@ namespace AuthExample.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.WriteToken(tokenHandler.CreateToken(tokenDescriptor));
 
-            return Ok(token);
+            user.HashedPassword = null;
+            return Ok(new { Token = token, User = user });
         }
     }
 }
