@@ -9,7 +9,7 @@ namespace AuthExample.Models
     {
 
 
-
+        public DbSet<User> Users { get; set; }
 
         private string ConvertPostConnectionToConnectionString(string connection)
         {
